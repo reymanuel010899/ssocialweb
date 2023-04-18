@@ -87,9 +87,21 @@ WSGI_APPLICATION = 'socialapp.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-DATABASE_URL = "postgresql://postgres:hI7j6ofKoDEsjafYMCVe@containers-us-west-140.railway.app:7301/railway"
+# DATABASE_URL = "postgresql://postgres:hI7j6ofKoDEsjafYMCVe@containers-us-west-140.railway.app:7301/railway"
+# DATABASES = {
+#      'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=1800)
+     
+# }
 DATABASES = {
-     'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=1800)
+     'default': {
+    
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME':'red_socialdb',
+        'USER':'postgres',
+        'PASSWORD':'admin',
+        'HOST':'127.0.0.1',
+        'PORT':5432,
+    }
      
 }
 
