@@ -1,0 +1,256 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Kiptly - Social Network</title>
+    <link rel="shortcut icon" href="{% static 'images/leon.jpg' %} " type="image/x-icon">
+
+    <audio id="notification-sound">
+        <source src="{% static 'noti.mp3' %}" type="audio/mpeg">
+    </audio>
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %} ">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <!-- Icons FontAwesome 4.7.0 -->
+    
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"  type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
+    
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar_menuicon" id="navicon">
+            <i class="fa fa-navicon"></i>
+        </div>
+        <div class="navbar_logo">
+            <img src="images/logo.png" alt="" />
+        </div>
+        <div class="navbar_page">
+           <span><a href="{% url 'inicio_app:inicio' %}" style="color: aliceblue;"> Kiptly</a></span> 
+        </div>
+        <div class="navbar_search">
+            <form method="GET" action="{% url 'inicio_app:buscar-contenido' %} ">
+                <input type="text" placeholder="Search people.." name="buscar" />
+                <button type="submit" ><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+        <div class="navbar_icons">
+            <ul>
+                <li><a href="{% url 'inicio_app:friend-añadidos'  %}" style="color:rgb(255, 255, 255)" class="fa fa-user-o"></a></li>
+                <li ><a href="{% url 'inicio_app:ultimo-chat' %}" style="color:rgb(255, 255, 255)" class="fa fa-comments-o"></a></li>
+                <a href="{% url 'inicio_app:listar-notificaciones' %}" style="color:rgb(255, 255, 255)"><li><i class="fa fa-globe"></i></li></a>
+            </ul>
+        </div>
+        <div class="navbar_user" >
+           <a href="{% url 'inicio_app:profile' user.username %} "><img src="{{user.avatar.url}}" alt="" /></a> 
+            <span id="navbar_user_top">{{user.username}}<br><p>User</p></span>
+        </div>
+    </div>
+    <div class="all">
+        <div class="rowfixed"></div>
+        <div class="left_row">
+            <div class="left_row_profile"> 
+                <div>  
+                    {% if persona %}
+                    <img id="portada" style="border-radius: 15px;"  src="{{persona.avatar.url}}"/>
+                    <div class="left_row_profile">
+                    <img id="profile_pic"   src="{{persona.avatar.url}}"/>
+                    <span>{{persona.username}} <br><h5> {{cantidad_amix}} amigo / {{cantidad_pots}} post / {{cantidad_like}} like</p></h5>
+
+                    {% elif usuario  %}
+                    <!-- vista de muro -->
+                    <img id="portada" style="border-radius:15px;"  src="{{usuario.avatar.url}}"/>
+                    <div class="left_row_profile">
+                    <img id="profile_pic"  src="{{usuario.avatar.url}} " />
+                    <span >{{usuario.username}} <br><h5>{{cantidad_amigos}} amigo / {{cantidad_post}} post / {{cantidad_like}} like</h5></span>
+
+
+                    {% elif  usuarios %}
+                    <!-- vista de fotos -->
+                    <img id="portada" style="border-radius: 15px;"  src="{{usuarios.avatar.url}}"/>
+                    <div class="left_row_profile">
+                    <img id="profile_pic"   src="{{usuarios.avatar.url}}"/>
+                    <span>{{usuarios.username}} <br><h5> {{nun_amigo}} amigo / {{nun_post}} post / {{nun_like}} like</p></h5>
+
+
+                    {% else %}
+                    <!-- inicio -->
+                    <img id="portada" style="border-radius: 15px;"  src="{{user.avatar.url}}"/>
+                    <div class="left_row_profile">
+                    <img id="profile_pic"   src="{{user.avatar.url}}"/>
+                    <span>{{user.username}}<br><h5>{{user.añadidos_user.count}} amigo / {{user.post_user_reverse.count}} post / {{cantidad_like}} like</h5></span>
+                    {% endif %}
+                    
+                          
+                </div>                               
+                </div>
+            </div>
+       
+            <div class="rowmenu" style=>
+                <ul>
+                    <li><a href="{% url 'inicio_app:inicio' %}" id="rowmenu-selected"><i class="fa fa-globe"></i>inicio</a></li>
+                    <li><a href=" {% url 'inicio_app:profile' user.username %} "><i class="fa fa-user"></i>Perfil</a></li>
+                    <li><a href="{% url 'inicio_app:friend-añadidos' %}"><i class="fa fa-users"></i>amigos <span style="background-color: blueviolet;"> </span></a> </li>
+                    <li class="primarymenu"><i class="fa fa-compass"></i>Explore</li>
+                    <ul>
+                        <li style="border:none"><a href="{% url 'inicio_app:listar-notificaciones' %}">Notificaciones</a></li>
+                        <li style="border:none"><a href="{% url 'inicio_app:sugerencia-amigo' %}">Sugerencias de Amigos</a></li> 
+                        <li style="border:none"><a href="{% url 'inicio_app:friend' %}">Solicitudes<button type="button" class="btn btn-primary position-relative">
+                          
+                        
+
+                          </button> </a></li>
+                    
+                    </ul>
+                    <li class="primarymenu"><i class="fa fa-user"></i>Rapid Access</li>
+                    <ul>
+                        <li style="border:none"><a href="{% url 'inicio_app:perfil-setting' %}">Ajustes</a></li>
+                        <li style="border:none"><a href="{% url 'users_app:logout'%}">log out</a></li>
+            
+                    </ul>
+                </ul>
+            </div>
+        </div>
+{% block content %}
+
+
+{% endblock content %}
+<div class="mobilemenu">
+    <div class="mobilemenu_profile">
+       <div>
+        
+            <!-- <span>{{user.username}} <br><p>{{totalamigos}} amigo / {{post}} post / {{like}} like</p></span> -->
+            
+            {% if persona %}
+            <img id="mobilemenu_portada" src="{{usuario.avatar.url}} " />
+            <div class="mobilemenu_profile">
+            <img id="mobilemenu_profile_pic" src="{{usuario.avatar.url}} " /><br>
+            <span >{{usuario.username}} <br><h5>  {{cantidad_amix}} amigo /  {{cantidad_pots}} post / {{cantidad_like}} like</h5></span>
+
+      
+            {% elif usuario %}
+            <img id="mobilemenu_portada" src="{{usuario.avatar.url}} " />
+            <div class="mobilemenu_profile">
+            <img id="mobilemenu_profile_pic" src="{{usuario.avatar.url}} " /><br>
+            <span >{{usuario.username}} <br><h5>  {{cantidad_amigos}} amigo / {{cantidad_post}} post / {{cantidad_like}} like</h5></span>
+
+            {% elif usuarios %}
+            <img id="mobilemenu_portada" src="{{usuarios.avatar.url}} " />
+            <div class="mobilemenu_profile">
+            <img id="mobilemenu_profile_pic" src="{{usuarios.avatar.url}} " /><br>
+            <span>{{usuarios.username}} <br><h5> {{nun_amigo}} amigo   / {{nun_post}} post / {{nun_like}} like</p></h5>
+
+            {% else %}
+            <img id="mobilemenu_portada" src="{{user.avatar.url}} " />
+            <div class="mobilemenu_profile">
+            <img id="mobilemenu_profile_pic" src="{{user.avatar.url}} " /><br>
+            <span>{{user.username}} <br><h5> {{cantidad_amigo}} amigo   / {{cantidad_post}} post / {{cantidad_like}} like</p></h5>
+            {% endif %}
+        </div>
+    </div>
+        <div class="mobilemenu_menu">
+            <ul>
+                <li><a href="{% url 'inicio_app:inicio' %}"><i class="fa fa-globe"></i>Inicio</a></li>
+                <li><a href="{% url 'inicio_app:profile' user.username %}"><i class="fa fa-user"></i>Perfil</a></li>
+                <li><a href="{% url 'inicio_app:friend-añadidos' %}"><i class="fa fa-users"></i>Amigos</a></li>
+                <li><a href="{% url 'inicio_app:ultimo-chat' %}"><i class="fa fa-comments-o"></i>messages</a></li>
+                <li class="primarymenu"><i class="fa fa-compass"></i>Explore</li>
+                <ul class="mobilemenu_child">
+                    <li style="border:none"><a href="{% url 'inicio_app:listar-notificaciones' %}"><i class="fa fa-globe"></i>Notificaciones</a></li>
+                    <li style="border:none"><a href="{% url 'inicio_app:friend-añadidos'  %}"><i class="fa fa-file"></i>Solicitudes</a></li>
+                </ul>
+                <li class="primarymenu"><i class="fa fa-user"></i>Rapid Access</li>
+                <ul class="mobilemenu_child">
+                    <li style="border:none"><a href="{% url 'inicio_app:perfil-setting' %}"><i class="fa fa-star-o"></i>Ajustes</a></li>
+                    <li><a href="{% url 'users_app:logout'%}">Logout</a></li>
+                </ul>
+            </ul>
+                
+        </div>
+    </div>
+    </div>
+    
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+<script>
+// Modals
+$(document).ready(function(){
+    
+    $("#messagesmodal").hover(function(){
+        $(".modal-comments").toggle();
+    });
+    $(".modal-comments").hover(function(){
+        $(".modal-comments").toggle();
+    });
+
+
+
+    $("#friendsmodal").hover(function(){
+        $(".modal-friends").toggle();
+    });
+    $(".modal-friends").hover(function(){
+        $(".modal-friends").toggle();
+    });
+
+
+    $("#profilemodal").hover(function(){
+        $(".modal-profile").toggle();
+    });
+    $(".modal-profile").hover(function(){
+        $(".modal-profile").toggle();
+    });
+
+
+    $("#navicon").click(function(){
+        $(".mobilemenu").fadeIn();
+    });
+    $(".all").click(function(){
+        $(".mobilemenu").fadeOut();
+    });
+});
+</script>
+<script>
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("myBtn").style.display = "block";
+        } else {
+            document.getElementById("myBtn").style.display = "none";
+        }
+    }
+
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+
+    var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+    var ws_path = ws_scheme + "://" + window.location.host + "/ws/chat/";
+
+    var socket = new WebSocket(ws_path);
+
+// Se ejecuta cuando se abre una conexión WebSocket
+    socket.onopen = function(event) {
+        console.log("WebSocket connection established.");
+    };
+
+// Se ejecuta cuando se recibe un mensaje a través de WebSocket
+    socket.onmessage = function(event) {
+        var message = JSON.parse(event.data);
+    // Lógica para mostrar el mensaje en la pantalla
+
+    // Reproduce el sonido de notificación
+        var notificationSound = document.getElementById("notification-sound");
+        notificationSound.play();
+    };
+</script>

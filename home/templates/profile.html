@@ -1,0 +1,248 @@
+{% extends 'base.html' %}
+{% block content %}
+
+        <div class="right_row">
+            <div class="row border-radius">
+                <div class="feed">
+                    <div class="feed_title">
+                        <span><a href=" {% url 'inicio_app:profile' usuario.username %} " id="select_profile_menu"><b>Profile</b></a> |  <a href="{% url 'inicio_app:perfil-about' usuario.username %}"><b>About</b></a> | <a href="{% url 'inicio_app:perfil-photos' usuario.username %}  "><b>Photos</b></a>  {% if user.id != usuario.id %}  |
+                            {% if amigo_o_no %}
+                            <a href=" {% url 'inicio_app:chat-usuario' usuario.username %} " id="select_profile_menu"><b>Chat</b></a></span>
+                            
+                            {% else %}
+                                {% if enviada %}
+                                    <a href="" id="select_profile_menu"><b>solicitud enviada</b></a></span>
+                                {% else %}
+                                    <a href=" {% url 'inicio_app:enviar-solicitud' usuario.username %} " id="select_profile_menu"><b>Enviar Solicitud</b></a></span>
+                                {% endif %}
+                            {% endif %}
+                            {% else %}
+                            {% endif %} 
+                            
+                    </div>
+                </div>
+            </div>
+
+            {% if user.id == usuario.id %}
+            <div class="row">
+                <div class="publish">
+                    <div class="row_title">
+                        <span><i class="fa fa-newspaper-o" aria-hidden="true"></i> Status</span>
+                    </div>
+                    <form method="POST" enctype="multipart/form-data" >{% csrf_token %}
+                        <div class="publish_textarea">
+                            <img class="border-radius-image" src=" {{usuario.avatar.url}}" alt="" />
+                            <textarea  name="status"  type="text" placeholder="¿Whats up, {{user.username}} ?" style="resize: none;"></textarea>
+                        </div>
+                        <div class="publish_icons">
+                            <ul> <input  type="file" name="files" id=""></a></i></li>
+
+                            </ul>
+                            <button>Publish</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {% else %}
+            {% endif %}
+            
+
+            {% for stat in estados  %}
+      
+            <div class="row border-radius">
+                <div class="feed">
+                    <div class="feed_title">
+                        <img src="{{usuario.avatar.url}} " alt="" />
+                        <span><b>{{usuario.username}}</b> Created -> <br><p>{{stat.creado}}</p></span>
+                        {{stat.created}}
+                    </div>
+             
+                    <div class="feed_content">
+                        {% if stat.images %}
+                        <div class="feed_content_image">
+                            {% if stat.descripcion %}
+                            {{stat.descripcion|truncatechars:100}}
+                            {% endif %}
+                            <a href="{% url 'inicio_app:feed' stat.id %} "><img style="max-height: 400px;" src="{{stat.archivo.url}} " alt="" /></a>
+                        </div>
+                        {% elif stat.video %}
+                        <div class="row border-radius">
+                            <div class="feed">
+                                <div class="feed_content">
+                                    <div class="feed_content_image">
+                                        <video src=" {{stat.archivo.url}}"  style="height: 200px; width: 100%;" controls="controls" class="card-img-top" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% elif stat.descripcion %}
+                        {% if not stat.images %}
+                        {% if not stat.video %}
+                        {% if not stat.archivo %}
+                        <div class="feed_content_image">
+                        {{stat.descripcion}}
+                        </div>
+                        {% endif %}                                  
+                        {% endif %}                                 
+                        {% endif %}
+                        {% endif %}                     
+                    </div>
+                    <div class="feed_footer">
+                        <ul class="feed_footer_left">
+                            <li class="hover-orange selected-orange"><a  href="{% url 'inicio_app:agregar-like' stat.id  %} "><i class="fa fa-heart"></i></a>{{stat.like_status_reverse.count}}</li>
+                            <li> {{stat.like_post_reverse.count }}</li>
+                           
+                        </ul>
+                        <ul class="feed_footer_right">
+                            <li>
+                                <li class="hover-orange selected-orange"><a href="{% url 'inicio_app:compartir-post' stat.id %}"><i class="fa fa-share"></i>{{stat.concartir_post_riverse.count}} </li></a>
+                               <li><a href=" {% url 'inicio_app:feed' stat.id %}" style="color:#515365;"><li class="hover-orange"><i class="fa fa-comments-o"></i> {{stat.comentario_post_reverse.count}} comments</li></a></li>
+                                
+                            </li>
+                        </ul>
+                    </div>
+                   
+                </div>
+            </div>
+          
+         
+            {% for stat in  compartidos %}
+                <div class="row border-radius">
+                    <div class="feed">
+                        <div class="feed_title">
+                            <img src="{{stat.user.avatar.url}} " alt="" />
+                             <span><a href="{% url 'inicio_app:profile' stat.user.username %} "><b>{{stat.user.username}}</b></a> Compatio  -> <span style="color: blue;">{{stat.amigo.añadidos.username}}</span></span>
+                        </div>                     
+                        <div class="feed_content">
+                            <span style="margin-left: 30px;"> {{stat.post.descripcion}}</span>  
+                            {% if stat.post.images %}
+                            <div class="feed_content_image">                                                              
+                                <a href="{% url 'inicio_app:feed' stat.post.id %} "><img src="{{stat.post.archivo.url}} " alt="" /></a>                           
+                            </div>
+                            {% elif stat.post.video %}
+                            <div class="row border-radius">
+                                <div class="feed">
+                                    <div class="feed_content">
+                                        <div class="feed_content_image">
+                                            <video src=" {{stat.post.archivo.url}}"  style="height: 200px; width: 100%;" controls="controls" class="card-img-top" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}                                 
+                        </div>
+                        <div class="feed_footer">
+                            <ul class="feed_footer_left">
+                                <li class="hover-orange selected-orange"><a  href="?like={{stat.post.id}}" ><i class="fa fa-heart"></i></a></li>
+                                <li>{{stat.post.like_post_reverse.count}}</li>
+                            </ul>
+                            <ul class="feed_footer_right">
+                                <li>
+                                    <li class="hover-orange selected-orange"><a href="{% url 'inicio_app:compartir-post' stat.post.id %} "><i class="fa fa-share"></i>{{stat.post.concartir_post_riverse.count}}</li></a>
+                                   <li><a href= "{% url 'inicio_app:feed' stat.post.id %} " style="color:#515365;"><li class="hover-orange"><i class="fa fa-comments-o"></i> {{stat.post.comentario_post_reverse.count}} comments</li></a></li> 
+                                    
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+            {% endfor %}
+   
+            {% endfor %}
+            <center>
+                <a href=""><div class="loadmorefeed">
+                    <i class="fa fa-ellipsis-h"></i>
+                </div></a>
+            </center>
+        </div>
+
+        <div class="suggestions_row">
+            
+
+            <div class="row shadow">
+                <div class="row_title">
+                    <span>Ultimas Fotos</span>
+                    <a href="{% url 'inicio_app:perfil-photos' usuario.username %} ">see all..</a>
+                </div>
+                <div class="row_contain_profilephotos">
+                    <ul>
+                        {% for ultima in ultimas  %}
+                        {% if ultima.images %}
+                            <li><a href="{% url 'inicio_app:feed' ultima.id %} "><img src="{{ultima.archivo.url}} " alt="" /></a></li>
+                        {% endif %}
+                        
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="row shadow">
+                <div class="row_title">
+                    <span>Conectados..   + {{cantidad_conectados}} </span>
+                </div>
+                {% for activos in  usuarios_activos %}
+                <div class="row_contain">
+                    <img src="{{activos.añadidos.avatar.url}} " alt="" />
+                    <span><a href="{% url 'inicio_app:chat-usuario' activos.añadidos.username %} " class="selected-orange">{{activos.añadidos.username}}</a><span><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentCol" style="background-color: rgb(47, 240, 21); border-radius:15px;  margin-left:100% ;"   viewBox="0 0 0 16">
+                        <path d="M8 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0 1A5 5 0 1 0 8 3a5 5 0 0 0 0 10z"/>
+                      </svg></span></span>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="row shadow">
+                <div class="row_title">
+                    {% if user.id == usuario.id %}
+                    <span>Amigos </span>
+                    <a href="{% url 'inicio_app:friend-añadidos' %}"> + {{totalamigos}} more..</a>
+                    {% else %}
+                    <span>Amigos en comun</span>
+                    {% endif %}
+                </div>
+                {% for comun in comunes %}
+                
+                <div class="row_contain">
+                    <img src="{{comun.añadidos.avatar.url}} " alt="" />   
+                    <span><a href="{% url 'inicio_app:profile' comun.añadidos.username %} ">{{comun.añadidos.username}} </a><br></span>
+                    <button>+</button>
+                </div>
+
+                {% endfor %}
+            </div>
+
+            <div class="row shadow">
+                <div class="row_title">
+                    <span>Actividades reciente</span>
+                </div>
+
+                {% for noti in notificaciones %}
+                    {% if noti.solicitud %}
+                        <div class="row_contain">
+                            <img src="{{noti.solicitud.user.avatar.url}} " alt="" />
+                            <span><a href="{% url 'inicio_app:agregar-amigos' noti.solicitud.user.username %} " class="selected-orange">{{noti.mensaje}} </a>..</span>
+                        </div>
+                    {% elif noti.comentarios.user.id == user.id %}
+                    
+                    {% elif noti.amigo %}
+                    <div class="row_contain">
+                        <img src="{{noti.amigo.añadidos.avatar.url}} " alt="" />
+                        <span><a href="{% url 'inicio_app:chat-usuario' noti.amigo.añadidos.username %} " class="selected-blue">{{noti.mensaje}}</a>..</span>
+                    </div> 
+                    {% elif noti.like %}
+                    <div class="row_contain">
+                        <img src="{{noti.like.user.avatar.url}} " alt="" />
+                        <span><a href=" {% url 'inicio_app:feed' noti.like.post.id %} " class="selected-blue">{{noti.mensaje|truncatechars:50}}</a>..</span>
+                    </div>
+                    
+                    {% elif noti.comentarios %}
+                    <div class="row_contain">
+                        <img src="{{noti.comentarios.user.avatar.url}} " alt="" />
+                        <span><a href="{% url 'inicio_app:feed' noti.comentarios.post.id %} " class="selected-blue">{{noti.mensaje|truncatechars:50}}</a>..</span>
+                    </div>
+
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {% endblock content %}

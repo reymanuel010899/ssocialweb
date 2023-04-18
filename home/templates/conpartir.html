@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="right_row" style="width:80%;">
+
+    <div class="row shadow">
+        <div class="feed">
+            <div class="feed_title">
+                <img src="{{post.user.avatar.url}} " alt="" />
+                <span><b>{{post.user.username}} </b> shared a <a href="">photo</a><br><p>{{post.created}} </p></span>
+            </div>
+            <div class="feed_content">
+                {% if post.images %}
+                <div class="feed_content_image"  >
+                    <img  style="height: 300px; " src=" {{post.archivo.url}}"  alt="" />
+                </div>
+                {% elif post.video  %}
+                <div class="row border-radius">
+                    <div class="feed">
+                        <div class="feed_content">
+                            <div class="feed_content_image">
+                                <video src=" {{post.archivo.url}}"  style="height: 200px; width: 100%;" controls="controls" class="card-img-top" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+               
+            </div>
+        </div>      
+            {% for amigo in  amigos %}
+            <div class="row_contain">
+                <img src="{{amigo.añadidos.avatar.url}} " alt="" />   
+                <span>{{amigo.añadidos.username}}<br></span>
+                <a type="button" href="?agregar={{amigo.id}}"><div style="width: 30px;  background-color: rgb(29, 29, 178); border-radius: 5px; ">.</div></a></span>
+            </div>
+            {% endfor %}
+    </div>
+    <center>
+        <a type="button" style="background-color: blue;" href=""><div class="loadmorefeed">
+            <i class="fa fa-ellipsis-h"></i>
+        </div></a>
+    </center>
+
+{% endblock content %}
+
+
+     

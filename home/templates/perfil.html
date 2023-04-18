@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="right_row">
+
+    <div class="row border-radius">
+        <center><div class="settings shadow">
+            <div class="settings_title">
+          
+                <h3>Personal Information</h3>
+            
+            </div>
+            <div class="settings_content">
+                <form method="post">{% csrf_token %}
+                    <div class="pi-input pi-input-lg">
+                        <span>First Name</span>
+                        <input type="text" value=" {{user.username}}" Name="nombre" />
+                    </div>
+                    <div class="pi-input pi-input-lg">
+                        <span>Last Name</span>
+                        <input type="text" value="{{user.apellido}}" name="apellido" />
+                    </div>
+                    <div class="pi-input pi-input-lg">
+                        <span>Your Website</span>
+                        <input type="url" value="ferrule.space/" name="webside"/>
+                    </div>
+                    <div class="pi-input pi-input-lg">
+                        <span>Your Birthday</span>
+                        <input type="date" value="1985-01-08" name="cumpleaño" />
+                    </div>
+                    <div class="pi-input pi-input-lg">
+                        <span>Telefono</span>
+                        <input type="text" placeholder="escribe tu numero" name="telefono" />
+                    </div>
+                    <div class="pi-input pi-input-lg">
+                        <span>pais</span>
+                        <input type="text" placeholder="escripe tu pais" Name="pais" />
+                    </div>
+                    <div class="pi-input pi-input-lg">
+                        <span>provincia</span>
+                        <input type="text" placeholder="escribe tu provincia" name="provincia" />
+                    </div>
+                    <div class="pi-input pi-input-lg">
+                        <span>municipio</span>
+                        <input type="text" placeholder="escribe tu municipio" name="municipio" />
+                    </div>
+                    <div class="pi-input pi-input-lg">
+                        <input type="text" name="genero">
+                        <span>Your Gender</span>
+                        <select>
+                            <option name="masculino" selected>Masculino</option>
+                            <option name="femenino">Femenino</option>
+                            <option name="otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="pi-input pi-input-lg">
+                        <span>Status</span>
+                        <input type="text" name="">
+                        <select>
+                            <option neme="casado" selected>Married</option>
+                            <option name="soltero">soltero</option>
+                        </select>
+                    </div>
+                    <div class="pi-input pi-input-lgg">
+                        <span>Little description about you</span>
+                        <input type="text" name="descripcion" value="Hi, I’m Jonh, I’m 36 and I work as a Digital Designer..." />
+                    </div>
+                    <button type="submit">Save</button>
+                </form>
+            </div>
+        </div></center>
+    </div>
+</div>
+
+<div class="suggestions_row">
+    <div class="row shadow">
+        <div class="row_title">
+            <span>Profile Settings</span>
+        </div>
+        <div class="menusetting_contain">
+            <ul>
+                <li>
+                    <a href="{% url 'inicio_app:perfil-about' user.username %}" id="settings-select">Personal Information</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row shadow">
+        <div class="row_title">
+            <span>Cambiar foto de perfil</span>
+        </div>
+        <form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+            <img style=" border-radius: 15px; max-height: 200px; max-width: 150px;" src="{{user.avatar.url}}" alt="" />
+        <div class="row_contain" >
+            {{form.as_p}}
+        </div>
+        <div class="row_contain">
+            <button type="submit">Cambiar</button>
+        </div>
+        
+        </form>
+    </div>
+</div>
+</div>
+</div>
+
+{% endblock content %}
+        
+

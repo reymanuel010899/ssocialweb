@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="right_row">
+    <div class="row border-radius">
+        <div class="feed">
+            <div class="feed_title">
+                <span><a href="  {% url 'inicio_app:profile' personal.user.username  %} "><b>Profile</b></a> | <a href=" {% url 'inicio_app:perfil-about' personal.user.username %}" id="select_profile_menu"><b>About</b></a> |  <a href="{% url 'inicio_app:perfil-photos' personal.user.username %} "><b>Photos</b></a>  {% if user.id != usuario.user.id %} 
+                    {% if amigo_o_no %}
+                    <a href=" {% url 'inicio_app:chat-usuario' usuario.id %} " id="select_profile_menu"><b>| Chat</b></a></span>
+                    {% else %}
+                   
+                    {% endif %}
+                    {% else%}
+                    <a href=" {% url 'inicio_app:enviar-solicitud' usuario.id %} " id="select_profile_menu"><b>Enviar Solicitud</b></a></span>
+                    {% endif %}
+            </div>        
+        </div>
+    </div>
+    <div class="row border-radius">
+        <div class="settings shadow">
+            <div class="settings_title">  
+                <h3>Personal Info</h3>
+            </div>
+            <div class="settings_content">
+                <style type="text/css">
+                    .settings_content ul li p {padding:5px;padding-left: 20px}
+                </style>
+                <ul>
+                    <li>
+                        <p>
+                            <b>About Me:</b>
+                            <br>
+                            <span>{{personal.descripcion}}</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <b>Birthday:</b>
+                            <br>
+                        </p>
+                    </li>
+                   <p style="margin-left: 20px;">{{personal.birthday}}</p> 
+                    <li>
+                        <p>
+                            <b>pais:</b>
+                            <br>
+                            {{personal.pais}}
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <b>provincia:</b>
+                            <br>
+                            {{personal.estado}}
+                        </p>
+                    </li>
+                  
+                   
+                    <li>
+                        <p>
+                            <b>Email:</b>
+                            <br>
+                            {{personal.user.gmail}}
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <b>Website:</b>
+                            <br>
+                            <a href="{{personal.webside}}">{{personal.webside}}</a>
+                        
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <b>Phone Number:</b>
+                            <br>
+                            {{personal.telefono}}
+                        </p>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="suggestions_row">
+    <div class="row shadow">
+        <div class="row_title">
+            <span>Last photos</span>
+            <a href="{% url 'inicio_app:perfil-photos' personal.user.username %} ">see all..</a>
+        </div>
+        <div class="row_contain_profilephotos">
+            <ul>
+                {% for ultima in fotos %}
+                {% if ultima.images %}
+                <li><a href="{% url 'inicio_app:feed' ultima.id %}"><img src="{{ultima.archivo.url}}" alt="" /></a></li>
+                {% elif ultima.video %}
+                
+                {% endif %}             
+                {% endfor %}                       
+            </ul>
+        </div>
+    </div>
+    <div class="row shadow">
+        <div class="row_title">
+            {% if user.id != personal.id %}
+            <span>Amigos </span>
+            <a href="{% url 'inicio_app:friend-añadidos' %}"> + {{totalamigos}} more..</a>
+            {% else %}
+            <h4>info personales</h4>
+            {% endif %}
+        </div>
+        {% for comun in amigos %}
+        <div class="row_contain">
+            <img src="{{comun.añadidos.avatar.url}} " alt="" />   
+            <span><a href="{% url 'inicio_app:perfil-about' comun.añadidos.username %} ">{{comun.añadidos.username}} </a><br></span>
+            <button>+</button>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</div>
+{% endblock content %}

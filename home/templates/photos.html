@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="right_row" style="width:80%;">
+    <div class="row border-radius">
+        <div class="feed">
+            <div class="feed_title">
+                <span><a href=" {% url 'inicio_app:profile' usuarios.username  %}"><b>Profile</b></a> | <a href="{% url 'inicio_app:perfil-about' usuarios.username %}"><b>About</b></a> | <a href="{% url 'inicio_app:perfil-photos' usuarios.username %} " id="select_profile_menu"><b>Photos</b></a> {% if user.id != usuarios.id %} 
+                    {% if amigo_o_no %}
+                    <a href=" {% url 'inicio_app:chat-usuario' usuarios.username %} " id="select_profile_menu"><b>| Chat</b></a></span>
+                    {% else%}
+                    <a href="{% url 'inicio_app:perfil-photos' usuarios.username %} " id="select_profile_menu"><b>Enviar Solicitud</b></a></span>
+                    {% endif %}
+                    {% else  %}
+            
+                    {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row shadow">
+        <div class="row_title">
+            <span>Photos</span>
+        </div>
+       
+            <div class="row_contain_profilephotos">
+               <ul>
+                {% for valor in fotos  %}
+                {% if valor.images %}
+                    <li><a href="{% url 'inicio_app:feed' valor.id  %} "><img src="{{valor.archivo.url}} " style="height: 125px; width: 125px;" class="card-img-top" alt=""></a></li>
+                {% endif %}
+                    {% empty %}
+                    <h1>no hay resultados</h1>
+                {% endfor %}
+                </ul>
+            </div> 
+</div>
+<center>
+    <a href=""><div class="loadmorefeed">
+        <i class="fa fa-ellipsis-h"></i>
+    </div></a>
+</center>
+</div>
+<button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up"></i></button>
+{% endblock content %}
+
+   

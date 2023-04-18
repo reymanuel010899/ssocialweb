@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% block content %}
+        <div class="right_row">
+
+            <div class="row border-radius">
+                <div class="feed">
+                    <div class="feed_title">
+                        <img src="{{publicacion.user.avatar.url}} " alt="" />
+                        <span><a href="{% url 'inicio_app:profile' publicacion.user.username %}">{{publicacion.user.username}} </a> shared a <a href="">photo</a><br><p>{{publicacion.created}} </p></span>
+                    </div>
+                    <div class="feed_content">
+
+                        {% if publicacion.images %}
+                        <div class="feed_content_image">
+                            {% if publicacion.descripcion %}
+                                {{publicacion.descripcion}}
+                            {% endif %}
+                            <img   src=" {{publicacion.archivo.url}}"  alt="" />
+                        </div>
+                        {% elif publicacion.video %}
+                        <div class="row border-radius">
+                            <div class="feed">
+                                <div class="feed_content">
+                                    <div class="feed_content_image">
+                                        <video src=" {{publicacion.archivo.url}}"  style="height: 200px; width: 100%;" controls="controls" class="card-img-top" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% elif publicacion.descripcion %}
+                        {% if not publicacion.images %}
+                        {% if not publicacion.video %}
+                        {% if not publicacion.archivo %}
+                        <div class="feed_content_image">
+                        {{publicacion.descripcion}}
+                        </div>
+                        {% endif %}                                  
+                        {% endif %}                                 
+                        {% endif %}
+                        {% endif %}
+                       
+                    </div>
+                    <div class="feed_footer">
+                        <ul class="feed_footer_left">
+                            <li class="hover-orange selected-orange"><a href="?like={{publicacion.id}}"><i class="fa fa-heart"></i></a></li>
+                            <li> {{publicacion.like_post_reverse.count}} </li>
+                        </ul>
+                        <ul class="feed_footer_right">
+                            <li>
+                                <li class="hover-orange selected-orange"><a href="{% url 'inicio_app:compartir-post' publicacion.id %} "><i class="fa fa-share"></i> {{publicacion.concartir_post_riverse.count}} </a></li>
+                                <li><a href="" style="color:#515365;"><li class="hover-orange"><i class="fa fa-comments-o"></i> {{publicacion.comentario_post_reverse.count}} comments</li></a></li>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                <div class="feedcomments">
+                    <ul>
+                        <form  method="POST">{% csrf_token %}
+                            <li style="margin-left: 5%;">
+                                <textarea name="comentario" style="position:static;"  id="" cols="40" rows="2"></textarea><br>
+                                <button type="submit"  style="color: black">Comentar</button>
+                            </li>
+                        </form>
+                       
+                        
+                        <li>
+                            {% for comentar in comentarios %}
+                            <div class="feedcomments-user">
+                                <a href="{% url 'inicio_app:profile' comentar.user.id %} ">
+                                <img src="{{comentar.user.avatar.url}} " />
+                                <span><b>{{comentar.user.username}} </b><br><p>{{comentar.created|date:"D M Y "}} </p></span>
+                                </a>
+                            </div>
+                            <div class="feedcomments-comment">
+                                <p>{{comentar.mensaje}} </p>
+                            </div>
+                            <div class="feedcomments-foot">
+                                <a href="?like_comentario={{comentar.id}}"><i class="fa fa-heart"></i></a><span>{{comentar.cantidad_comentario}} likes</span>
+                            </div>                            
+                            {% endfor %}
+                        </li>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <center>
+                <a href=""><div class="loadmorefeed">
+                    <i class="fa fa-ellipsis-h"></i>
+                </div></a>
+            </center>
+        </div>
+
+
+        <div class="suggestions_row">
+            <div class="row shadow">
+                <div class="row_title">
+                    <span>sugerencias de amigos</span>
+                    <a href="{% url 'inicio_app:sugerencia-amigo'  %}">see more..</a>
+                </div>
+                {% for sug in sugerencia %}
+                <div class="row_contain">
+                    <img src="{{sug.avatar.url}} " alt="" />
+                    <span><b><a href=" {% url 'inicio_app:profile' sug.username %} ">{{sug.username}}</a></b><br></span>
+                    <button>+</button>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="row shadow">
+                <div class="row_title">
+                    <span>personas añadidos</span>
+                </div>
+                {% for noti in notificaciones  %}
+                    {% if noti.solicitud_enviada %} 
+                     {% if noti.solicitud_enviada.añadidos == user %} 
+                        <div class="row_contain">
+                            <img src="{{noti.solicitud_enviada.user.avatar.url}} " alt="" />
+                            <span><a href="{% url 'inicio_app:chat-usuario' noti.solicitud_enviada.user.username  %} "><b>{{noti.mensaje|truncatechars:50}}</b></a><br></span>
+                        </div>
+                    {% endif %} 
+                     {% endif %}
+                {% endfor %}
+              
+           
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

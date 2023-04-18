@@ -1,0 +1,37 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Login - Social Network</title>
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href=" {% static 'css/login/util.css' %} ">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login/main.css' %}  ">
+
+    <!-- Icons FontAwesome 4.7.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"  type="text/css" />
+
+</head>
+
+{% block content  %}
+
+{% endblock content %}
+
+<script src="js/jquery/jquery-3.2.1.min.js"></script>
+<script src="js/popper.js"></script>
+<script src="js/tilt.jquery.min.js"></script>
+<script >
+    $('.js-tilt').tilt({
+        scale: 1.1
+    })
+</script>
+
+

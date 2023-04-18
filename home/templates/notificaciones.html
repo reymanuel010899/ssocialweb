@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="right_row">
+    
+    <div class="row border-radius">
+        <center><div class="settings shadow">
+            <div class="settings_title">
+                <div><h2 style="color: black; ">Notificaciones</h2></div>
+            </div>
+            <div class="settings_content">
+                
+                <div >
+                    
+                    <div class="friend">
+                        {% for noti in notificaciones  %}
+                        {% if noti.solicitud %}
+                        <div class="friend_title">
+                            <img src="{{noti.solicitud.user.avatar.url}} " alt="" />
+                            <span><a href="{% url 'inicio_app:agregar-amigos' noti.solicitud.user.username %}  " class="selected-orang">{{noti.mensaje|truncatechars:50 }} </a>..</span>
+                            <a href="" class="add-friend"></a>
+                        </div>
+                        {% elif noti.comentarios.user.id == user.id %}
+                        {% elif noti.amigo %}
+                        <div class="friend_title">
+                            <img src="{{noti.amigo.añadidos.avatar.url}}" alt="" />
+                            <span> <a href="{% url 'inicio_app:chat-usuario' noti.amigo.añadidos.username %}" >{{noti.mensaje|truncatechars:50}}</span>
+                            </a>
+                        </div>
+                        {% elif noti.like %}
+                        <div class="row_contain">
+                            <img src="{{noti.like.user.avatar.url}} " alt="" />
+                            <span><a href=" {% url 'inicio_app:feed' noti.like.post.id %} " class="selected-blue">{{noti.mensaje|truncatechars:50}}</a>..</span>
+                        </div>
+                        {% elif noti.comentarios %}
+                        <div class="row_contain">
+                            <img src="{{noti.comentarios.user.avatar.url}} " alt="" />
+                            <span><a href="{% url 'inicio_app:feed' noti.comentarios.post.id %} " class="selected-blue">{{noti.mensaje|truncatechars:50}}</a>..</span>
+                        </div>
+                        {% elif noti.solicitud_enviada %}
+                            {% if noti.solicitud_enviada.añadidos == user %}
+                            <div class="row_contain">
+                                <img src="{{noti.comentarios.user.avatar.url}} " alt="" />
+                                <span><a href="" class="selected-blue">{{noti.mensaje|truncatechars:50}}</a>..</span>
+                            </div>
+                            {% endif %}               
+                        {% endif %}
+                        {% endfor %}                      
+                    </div>
+                </div>               
+            </div>   
+        </div></center>
+    </div>
+    <center>
+        <a href=""><div class="loadmorefeed">
+            <i class="fa fa-ellipsis-h"></i>
+        </div></a>
+    </center>
+</div>
+
+<div class="suggestions_row">
+    <div class="row shadow">
+    </div>
+    <div class="row shadow">
+        <div class="row_title">
+            <span>Solicitudes pendientes...</span>
+        </div>
+        {% for noti in notificaciones  %}
+        {% if noti.solicitud %}
+        <div class="row_contain">
+            <img src="{{noti.solicitud.user.avatar.url}}" alt="" />
+            <span><a href="{% url 'inicio_app:friend' %} "><b>{{noti.solicitud.user.username}} </b></a><br>{{noti.solicitud.user.apellido}} </span>
+        </div>
+        {% endif %}
+       
+        {% endfor %}
+    </div>
+</div>
+</div>
+</div>
+<button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up"></i></button>
+{% endblock content %}
+        
+

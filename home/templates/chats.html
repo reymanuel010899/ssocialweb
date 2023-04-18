@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"  type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/dae2473e41.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/chats.css' %} ">
+</head>
+<body >
+    {% include 'sidebar_lef_include.html' %}
+    <div class="container clearfix" style="margin-left:5%;">
+        <div class="people-list" id="people-list">
+          <div class="search" >
+            <form action="{% url 'inicio_app:chat-usuario' amigos.añadidos.username %}" method="POST">{% csrf_token %}
+              
+            <span><input type="text"  name="buscar" placeholder="search"/><span><button type="submit">buscar</button></span></span>
+            
+            </form>
+          </div>
+          <ul class="list">
+            {% for ultimos in amigos_chats %}
+            <li class="clearfix">
+                <a href="{% url 'inicio_app:chat-usuario' ultimos.añadidos.username %} ">
+                <img src="{{ultimos.añadidos.avatar.url}} " style="height:70px; border-radius: 50%; width: 60px;" alt="avatar" />
+              <div class="about">
+                <div class="name" style="color: aliceblue;">{{ultimos.añadidos.username}} </div>
+                {% if ultimos.añadidos.is_online %}
+                <div class="status">
+                  <i class="fa fa-circle online"></i> online
+                </div>
+                {% endif %}
+                </a>
+              </div>
+            </li>
+            {% endfor %}
+
+          </ul>
+        </div>
+        
+        <div class="chat" style=" ">
+          <div class="chat-header clearfix">
+            <img src="{{amigos.añadidos.avatar.url}} " style="height:50px; border-radius: 50%;" alt="avatar" />
+            
+            <div class="chat-about">
+              <div class="chat-with">Chat de {{amigos.añadidos.username}} </div>
+              {% if amigos.añadidos.is_online %}
+              <div class="status">
+                <i class="fa fa-circle online"></i> online
+              </div>
+              {% endif %}
+              
+            </div>
+            <i class="fa fa-star"></i>
+        
+          </div> <!-- end chat-header -->
+     
+          <div class="chat-history">
+            <ul>
+                {% for mmg in messege %}
+                <li class="clearfix">
+                    {% if mmg.user.id == user.id %}
+                    <div class="message-data align-right">
+                      <span class="message-data-time" ></span> &nbsp; &nbsp;
+                      <span class="message-data-name" >{{user.username}} </span> <i class="fa fa-circle me"></i>
+                      
+                    </div>
+                    <div class="message other-message float-right">
+                        {{mmg.mensaje}}
+                        <P style="text-align:right; font-size:0.8EM ;">{{mmg.created|time:"TIME_FORMAT"}} </P>
+                    </div>
+                    {% elif mmg.user.username == amigos.añadidos.username %}
+                    <li>
+                        <div class="message-data">
+                          <span class="message-data-name"><i class="fa fa-circle online"></i>{{mmg.user.username}} </span>
+                          <span class="message-data-time"></span>
+                        </div>
+                        <div class="message my-message">
+                            {{mmg.mensaje}}
+                            <P style="text-align:right; font-size:0.8EM ;">{{mmg.created|time:"TIME_FORMAT"}} </P>
+                        </div>
+                      </li>          
+                    {% endif %}
+                {% endfor %}    
+            </ul>
+          </div> 
+          
+          <!-- end chat-history -->
+          
+          <form class="chat-message clearfix" method="POST">{% csrf_token %}
+            <textarea name="message-to-send" id="message-to-send" placeholder ="Type your message" rows="3"></textarea>
+            <button>Enviar</button>
+    
+          </form> <!-- end chat-message -->
+          
+        </div> <!-- end chat -->
+        
+      </div> <!-- end container -->
+    
+    
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+</body>

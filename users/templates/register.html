@@ -1,0 +1,77 @@
+{% extends "base_user.html" %}
+{% load static %}
+{% block content %}
+<body>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+
+                <form class="login100-form validate-form" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                    <span class="login100-form-title">
+                        Registrar usuarios
+                    </span>
+                    {{errores}}
+                    <div class="wrap-input100 validate-input" data-validate = "Valid user is required">
+                        {{form.username}}
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                  
+                    <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                        {{form.gmail}}
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                        {{form.password}}
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </span>
+                    </div>
+              
+                    <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                        {{form.password2}}
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <div>
+                        <span>Foto: <input type="file" required name="perfil"></span>
+                    </div>
+
+
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn">
+                            Register
+                        </button>
+                    </div>
+
+                    <div class="text-center p-t-136">
+                        <a class="txt2" href="{% url 'users_app:iniciar-secion' %} ">
+                            Login Now
+                            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </form>
+
+                <div class="login100-pic js-tilt" data-tilt>
+                    <a href=""><img src="{% static 'images/leon.jpg' %} " alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+  
+
+</body>
+</html>
+{% endblock content %}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="right_row" style="width:80%;">
+    <div><h3 style="margin-left: 5%; ">Amigos</h3></div>
+    <div class="row border-radius">      
+            {% for solicitud in  page.object_list %}
+            <div class="friend">
+            <div class="friend_title">
+                <img src="{{solicitud.añadidos.avatar.url}} " alt="" />
+                <span><b> <a href=" {% url 'inicio_app:profile' solicitud.añadidos.username %}" class="">{{solicitud.añadidos.username}}</a> </b><br><p></p></span>
+            </div>
+            </div>
+            {% endfor %}
+             <div class='container'>
+            {% if page.paginator.num_pages > 1 %}
+            <nav aria-label="Page navigation example">
+              <p>page: {{page.number}} / {{page.paginator.num_pages}} </p>
+              <ul class="pagination">
+              {% if page.has_previous %}
+                <span><li class="page-item"><a style="background-color: rgb(26, 26, 237); color: aliceblue;border-radius: 5px;" class="page-link" href="{% url 'inicio_app:friend-añadidos' %}?page={{page.previous_page_number}} ">atras</a></li></span>
+                {% endif %}
+                {% if page.number != '1' %}
+                <span><li class="page-item"><a class="page-link" href="?page={{page.number}} ">{{page.number}} </a></li></span>
+                {% endif %}
+                {% if page.has_next %}
+                <span><li class="page-item"><a style="background-color: rgb(26, 26, 237); color: aliceblue; border-radius: 5px;"  class="page-link" href=" {% url 'inicio_app:friend-añadidos' %}?page={{page.next_page_number }} ">Next</a></li></span>
+                {% endif %}
+              </ul>
+            </nav>
+            {% endif %}
+        </div>
+
+    </div>
+    <center>
+        <a href=""><div class="loadmorefeed">
+            <i class="fa fa-ellipsis-h"></i>
+        </div></a>
+     
+
+    </center>
+    <div>
+        
+
+    </div>
+{% endblock content %}
+
+
+     
