@@ -21,11 +21,6 @@ import json
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
-# with open('secret.json') as f:
-#     secret = json.loads(f.read())
-
-#     def get_secret(secret_name, secrets=secret):
-#         return secrets[secret_name]
 
 
 
