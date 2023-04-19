@@ -29,7 +29,7 @@
                 <a href="{% url 'inicio_app:chat-usuario' ultimos.añadidos.username %} ">
                 <img src="{{ultimos.añadidos.avatar.url}} " style="height:70px; border-radius: 50%; width: 60px;" alt="avatar" />
               <div class="about">
-                <div class="name" style="color: aliceblue;">{{ultimos.añadidos.username}} </div>
+                <div class="name" style="color: aliceblue;">{{ultimos.añadidos.username|truncatechars:8}} </div>
                 {% if ultimos.añadidos.is_online %}
                 <div class="status">
                   <i class="fa fa-circle online"></i> online
