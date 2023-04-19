@@ -29,7 +29,7 @@
                 <div class="feed">
                     <div class="feed_title">
                         <img src="{{post.user.avatar.url}} " alt="" />
-                        <span><a href="{% url 'inicio_app:profile' post.user.username %}">{{post.user.username}} </a> shared a <a href="{% url 'inicio_app:feed' post.id %} ">photo</a><br><p>{{post.created|time:"TIME_FORMAT"}} </p></span>
+                        <span><a href="{% url 'inicio_app:profile' post.user.username %}">{{post.user.username}} </a> shared a <a href="{% url 'inicio_app:feed' post.id %} ">photo</a><br><p>{{post.created}} </p></span>
                     </div>
                     
                     <div class="feed_content">
