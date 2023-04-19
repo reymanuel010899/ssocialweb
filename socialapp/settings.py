@@ -30,14 +30,14 @@ import json
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY =  os.environ.get('SECRET_KEY') #'django-insecure-)jsml3k&%k%w+z0orm=@(vzijp&12na!93mc_b9_x2-_-v8+9j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ['https://ssocialweb-production.up.railway.app/']
+CSRF_TRUSTED_ORIGINS = ['https://ssocialweb-production.up.railway.app']
 
 # Application definition
 
@@ -161,8 +161,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER') # 'reymanuelferrera78@gmail.com'
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD') #'uorhvnxgacyvvih'
+EMAIL_HOST_USER =  os.environ.get('EMAIL_HOST_USER')# 'reymanuelferrera78@gmail.com'
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')# 'cuorhvnxgacyvvih'
 EMAIL_USE_TLS = True
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
    
