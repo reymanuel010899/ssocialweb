@@ -1,1 +1,1 @@
-web: python manage.py migrate &&  gunicorn socialapp.wsgi 
+web: gunicorn socialapp.wsgi --log-file -
