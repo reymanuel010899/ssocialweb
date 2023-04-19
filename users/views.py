@@ -35,8 +35,6 @@ def registrar_usuario(request):
         PostModel.objects.create(user=user, archivo=user.avatar)
         mensaje = "Bienvenido %s  espero que te la pases bien en kiptly"%(user.username)
         ChatModels.objects.create(user=redsocial, amigo=obj, mensaje=mensaje)
-       
-           
         asunto ='CODIGO DE VERIFICACION'
         messege = 'por favor agregar este codigo %s'%(codig)
         from_mail = settings.EMAIL_HOST_USER 
