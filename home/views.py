@@ -75,7 +75,7 @@ def  perfil(request, username):
 
 @login_required(login_url='users_app:registrar')
 def friend_views(request):
-    solicitudes = SolisitudMOdel.objects.filter(solisitud=request.user)
+    solicitudes = SolisitudMOdel.objects.filter(solisitud=request.user).exclude(user=request.user)
     return render(request, "friends.html", {'usuarios':solicitudes})
 
 
@@ -199,7 +199,7 @@ def añadir_a_amigos(request, username):
             solicitud.delete()
             return redirect('inicio_app:friend')
         else:
-            solicitud = SolisitudMOdel.objects.get(user__username=username)
+            solicitud = SolisitudMOdel.objects.get( solisitud=request.user, user__username=username)
             solicitud.delete()
             return redirect('inicio_app:friend')
 
@@ -225,7 +225,7 @@ def chats_usuarios(request, username):
     amigo_2 = AmigoModels.objects.get(user=amix , añadidos=user)
     mensajes = ChatModels.objects.filter(Q(user=user)| Q(user=amix), Q(amigo=amigo) | Q(amigo=amigo_2)).order_by('-created')
     ultimos_mensaje_por_amigo=ChatModels.objects.ultimos_amigos(user)
-    amigos_en_chat = AmigoModels.objects.filter(añadidos__id__in=ultimos_mensaje_por_amigo).distinct('añadidos__id',)
+    amigos_en_chat = AmigoModels.objects.filter(añadidos__id__in=ultimos_mensaje_por_amigo).distinct('añadidos__id',)[:8]
     if request.method == "GET":
         mensaje =  ChatModels.objects.filter(user=user, amigo=amigo).first()
         if mensaje:
@@ -344,3 +344,15 @@ def comentar_post(request, pk):
             return redirect('inicio_app:profile', username=post.user.username)
         
 
+def eliminar_post(request, pk):
+    if request.method == 'GET':
+        post = PostModel.objects.get(id=pk)
+        post.delete()
+        return redirect('inicio_app:profile', username=post.user.username)
+    
+
+def eliminar_conpartidos(request, pk):
+    if request.method == 'GET':
+        post = ConpartirModels.objects.get(id=pk)
+        post.delete()
+        return redirect('inicio_app:profile', username=post.amigo.añadidos.username)

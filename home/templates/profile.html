@@ -50,6 +50,10 @@
             {% for stat in estados  %}
       
             <div class="row border-radius">
+                {% if stat.user == user %}
+                <span style="margin-left: 98%;"><a href="{% url 'inicio_app:eliminar-post' stat.id %} ">x</a></span> 
+                {% endif %}
+
                 <div class="feed">
                     <div class="feed_title">
                         <img src="{{usuario.avatar.url}} " alt="" />
@@ -108,6 +112,10 @@
          
             {% for stat in  compartidos %}
                 <div class="row border-radius">
+                    {% if stat.amigo.añadidos == user %}
+                    <span style="margin-left: 98%;"><a href="{% url 'inicio_app:eliminar-conpartido' stat.id %} ">x</a></span>
+                    {% endif %}
+                  
                     <div class="feed">
                         <div class="feed_title">
                             <img src="{{stat.user.avatar.url}} " alt="" />

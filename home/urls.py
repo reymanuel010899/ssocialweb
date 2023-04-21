@@ -24,6 +24,8 @@ urlpatterns = [
     path("compartir-post/<pk>/", views.compartir_post, name="compartir-post"),
     path('sugerencia-amigo/', views.sugerencias_amigos_views, name="sugerencia-amigo"),
     path('comentar-post-profile/<pk>/',  views.comentar_post, name="comentar-post-profile" ),
+    path('eliminar-post/<pk>/', views.eliminar_post, name="eliminar-post"),
+    path('eliminar-conpartido/<pk>/', views.eliminar_conpartidos, name="eliminar-conpartido")
     # path('cambiar-perfil/', views.cambiar_perfil, name="cambiar-perfil")
     #path('cambiar-contraseña/', views.cambiar_contraseña, name="cambiar-contraseña"),
     
