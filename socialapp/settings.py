@@ -88,7 +88,7 @@ WSGI_APPLICATION = 'socialapp.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-DATABASE_URL = "postgresql://postgres:hI7j6ofKoDEsjafYMCVe@containers-us-west-140.railway.app:7301/railway"
+DATABASE_URL = "postgresql://postgres:J5HG9hK0eQP7gCkLAFTx@containers-us-west-149.railway.app:6248/railway"
 DATABASES = {
      'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=1800)
      
