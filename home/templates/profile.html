@@ -45,7 +45,52 @@
             </div>
             {% else %}
             {% endif %}
+            {% for stat in  compartidos %}
+            <div class="row border-radius">
+                {% if stat.amigo.añadidos == user %}
+                <span style="margin-left: 98%;"><a href="{% url 'inicio_app:eliminar-conpartido' stat.id %} ">x</a></span>
+                {% endif %}
+              
+                <div class="feed">
+                    <div class="feed_title">
+                        <img src="{{stat.user.avatar.url}} " alt="" />
+                         <span><a href="{% url 'inicio_app:profile' stat.user.username %} "><b>{{stat.user.username}}</b></a> Compatio  -> <span style="color: blue;">{{stat.amigo.añadidos.username}}</span></span>
+                    </div>                     
+                    <div class="feed_content">
+                        <span style="margin-left: 30px;"> {{stat.post.descripcion}}</span>  
+                        {% if stat.post.images %}
+                        <div class="feed_content_image">                                                              
+                            <a href="{% url 'inicio_app:feed' stat.post.id %} "><img src="{{stat.post.archivo.url}} " alt="" /></a>                           
+                        </div>
+                        {% elif stat.post.video %}
+                        <div class="row border-radius">
+                            <div class="feed">
+                                <div class="feed_content">
+                                    <div class="feed_content_image">
+                                        <video src=" {{stat.post.archivo.url}}"  style="height: 200px; width: 100%;" controls="controls" class="card-img-top" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}                                 
+                    </div>
+                    <div class="feed_footer">
+                        <ul class="feed_footer_left">
+                            <li class="hover-orange selected-orange"><a  href="?like={{stat.post.id}}" ><i class="fa fa-heart"></i></a></li>
+                            <li>{{stat.post.like_post_reverse.count}}</li>
+                        </ul>
+                        <ul class="feed_footer_right">
+                            <li>
+                                <li class="hover-orange selected-orange"><a href="{% url 'inicio_app:compartir-post' stat.post.id %} "><i class="fa fa-share"></i>{{stat.post.concartir_post_riverse.count}}</li></a>
+                               <li><a href= "{% url 'inicio_app:feed' stat.post.id %} " style="color:#515365;"><li class="hover-orange"><i class="fa fa-comments-o"></i> {{stat.post.comentario_post_reverse.count}} comments</li></a></li> 
+                                
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
             
+        {% endfor %}
 
             {% for stat in estados  %}
       
@@ -108,56 +153,9 @@
                    
                 </div>
             </div>
-          
-         
-            {% for stat in  compartidos %}
-                <div class="row border-radius">
-                    {% if stat.amigo.añadidos == user %}
-                    <span style="margin-left: 98%;"><a href="{% url 'inicio_app:eliminar-conpartido' stat.id %} ">x</a></span>
-                    {% endif %}
-                  
-                    <div class="feed">
-                        <div class="feed_title">
-                            <img src="{{stat.user.avatar.url}} " alt="" />
-                             <span><a href="{% url 'inicio_app:profile' stat.user.username %} "><b>{{stat.user.username}}</b></a> Compatio  -> <span style="color: blue;">{{stat.amigo.añadidos.username}}</span></span>
-                        </div>                     
-                        <div class="feed_content">
-                            <span style="margin-left: 30px;"> {{stat.post.descripcion}}</span>  
-                            {% if stat.post.images %}
-                            <div class="feed_content_image">                                                              
-                                <a href="{% url 'inicio_app:feed' stat.post.id %} "><img src="{{stat.post.archivo.url}} " alt="" /></a>                           
-                            </div>
-                            {% elif stat.post.video %}
-                            <div class="row border-radius">
-                                <div class="feed">
-                                    <div class="feed_content">
-                                        <div class="feed_content_image">
-                                            <video src=" {{stat.post.archivo.url}}"  style="height: 200px; width: 100%;" controls="controls" class="card-img-top" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endif %}                                 
-                        </div>
-                        <div class="feed_footer">
-                            <ul class="feed_footer_left">
-                                <li class="hover-orange selected-orange"><a  href="?like={{stat.post.id}}" ><i class="fa fa-heart"></i></a></li>
-                                <li>{{stat.post.like_post_reverse.count}}</li>
-                            </ul>
-                            <ul class="feed_footer_right">
-                                <li>
-                                    <li class="hover-orange selected-orange"><a href="{% url 'inicio_app:compartir-post' stat.post.id %} "><i class="fa fa-share"></i>{{stat.post.concartir_post_riverse.count}}</li></a>
-                                   <li><a href= "{% url 'inicio_app:feed' stat.post.id %} " style="color:#515365;"><li class="hover-orange"><i class="fa fa-comments-o"></i> {{stat.post.comentario_post_reverse.count}} comments</li></a></li> 
-                                    
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
             {% endfor %}
-   
-            {% endfor %}
+        
+
             <center>
                 <a href=""><div class="loadmorefeed">
                     <i class="fa fa-ellipsis-h"></i>

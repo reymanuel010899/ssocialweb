@@ -19,13 +19,14 @@
                             <div class="publish_icons">
                                 <ul> <input  type="file" name="files" id=""></a></i></li>
                                 </ul>
-                                <button>Publish</button>
+                                <button style="background-color: rgb(169, 77, 255);">Publish</button>
                             </div>
                         </form>
                 </div>
             </div>
            {% for post in  posts %}
             <div class="row border-radius">
+
                 <div class="feed">
                     <div class="feed_title">
                         <img src="{{post.user.avatar.url}} " alt="" />
@@ -104,7 +105,7 @@
                 <div class="row_contain">
                     <img src="{{sug.avatar.url}} " alt="" />
                     <span><b><a href=" {% url 'inicio_app:profile' sug.username %} ">{{sug.username}}</a></b><br></span>
-                    <button>+</button>
+                    <button style="background-color: rgb(169, 77, 255);">+</button>
                 </div>         
                 {% endfor %}
             </div>

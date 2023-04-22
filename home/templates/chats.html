@@ -14,16 +14,16 @@
 </head>
 <body >
     {% include 'sidebar_lef_include.html' %}
-    <div class="container clearfix" style="margin-left:5%;">
+    <div class="container clearfix" style="margin-left:5%; background-color: rgb(169, 77, 255);">
         <div class="people-list" id="people-list">
           <div class="search" >
-            <form action="{% url 'inicio_app:chat-usuario' amigos.añadidos.username %}" method="POST">{% csrf_token %}
+            <form  action="{% url 'inicio_app:chat-usuario' amigos.añadidos.username %}" method="POST">{% csrf_token %}
               
             <span><input type="text"  name="buscar" placeholder="search"/><span><button type="submit">buscar</button></span></span>
             
             </form>
           </div>
-          <ul class="list">
+          <ul class="list" style="margin-left:5%; background-color: rgb(169, 77, 255);">
             {% for ultimos in amigos_chats %}
             <li class="clearfix">
                 <a href="{% url 'inicio_app:chat-usuario' ultimos.añadidos.username %} ">
@@ -70,7 +70,7 @@
                       <span class="message-data-name" >{{user.username}} </span> <i class="fa fa-circle me"></i>
                       
                     </div>
-                    <div class="message other-message float-right">
+                    <div class="message other-message float-right" style="background-color: rgb(169, 77, 255);">
                         {{mmg.mensaje}}
                         <P style="text-align:right; font-size:0.8EM ;">{{mmg.created|time:"TIME_FORMAT"}} </P>
                     </div>
@@ -80,7 +80,7 @@
                           <span class="message-data-name"><i class="fa fa-circle online"></i>{{mmg.user.username}} </span>
                           <span class="message-data-time"></span>
                         </div>
-                        <div class="message my-message">
+                        <div class="message my-message" style="background-color: rgb(227, 46, 200);" > 
                             {{mmg.mensaje}}
                             <P style="text-align:right; font-size:0.8EM ;">{{mmg.created|time:"TIME_FORMAT"}} </P>
                         </div>
@@ -94,7 +94,7 @@
           
           <form class="chat-message clearfix" method="POST">{% csrf_token %}
             <textarea name="message-to-send" id="message-to-send" placeholder ="Type your message" rows="3"></textarea>
-            <button>Enviar</button>
+            <button style="color:  rgb(169, 77, 255);">Enviar</button>
     
           </form> <!-- end chat-message -->
           
