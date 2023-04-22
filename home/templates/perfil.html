@@ -12,19 +12,19 @@
             <div class="settings_content">
                 <form method="post">{% csrf_token %}
                     <div class="pi-input pi-input-lg">
-                        <span>First Name</span>
+                        <span>Nombre</span>
                         <input type="text" value=" {{user.username}}" Name="nombre" />
                     </div>
                     <div class="pi-input pi-input-lg">
-                        <span>Last Name</span>
+                        <span>Apellido</span>
                         <input type="text" value="{{user.apellido}}" name="apellido" />
                     </div>
                     <div class="pi-input pi-input-lg">
-                        <span>Your Website</span>
+                        <span>redes sociales</span>
                         <input type="url" value="ferrule.space/" name="webside"/>
                     </div>
                     <div class="pi-input pi-input-lg">
-                        <span>Your Birthday</span>
+                        <span>Cumpleaño</span>
                         <input type="date" value="1985-01-08" name="cumpleaño" />
                     </div>
                     <div class="pi-input pi-input-lg">
@@ -32,7 +32,7 @@
                         <input type="text" placeholder="escribe tu numero" name="telefono" />
                     </div>
                     <div class="pi-input pi-input-lg">
-                        <span>pais</span>
+                        <span>Pais</span>
                         <input type="text" placeholder="escripe tu pais" Name="pais" />
                     </div>
                     <div class="pi-input pi-input-lg">
@@ -40,12 +40,12 @@
                         <input type="text" placeholder="escribe tu provincia" name="provincia" />
                     </div>
                     <div class="pi-input pi-input-lg">
-                        <span>municipio</span>
+                        <span>Municipio</span>
                         <input type="text" placeholder="escribe tu municipio" name="municipio" />
                     </div>
                     <div class="pi-input pi-input-lg">
                         <input type="text" name="genero">
-                        <span>Your Gender</span>
+                        <span>Genero</span>
                         <select>
                             <option name="masculino" selected>Masculino</option>
                             <option name="femenino">Femenino</option>
@@ -53,18 +53,18 @@
                         </select>
                     </div>
                     <div class="pi-input pi-input-lg">
-                        <span>Status</span>
+                        <span>status</span>
                         <input type="text" name="">
                         <select>
-                            <option neme="casado" selected>Married</option>
+                            <option neme="casado" selected>casado</option>
                             <option name="soltero">soltero</option>
                         </select>
                     </div>
                     <div class="pi-input pi-input-lgg">
-                        <span>Little description about you</span>
-                        <input type="text" name="descripcion" value="Hi, I’m Jonh, I’m 36 and I work as a Digital Designer..." />
+                        <span>Describete ...</span>
+                        <input type="text" name="descripcion" value="hola, soy {{user.username}}, tengo 36 y trabajo ingenieria..." />
                     </div>
-                    <button style="background-color: rgb(169, 77, 255);" type="submit">Save</button>
+                    <button style="background-color: rgb(169, 77, 255);" type="submit">Guardar</button>
                 </form>
             </div>
         </div></center>

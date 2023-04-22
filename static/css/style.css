@@ -28,8 +28,8 @@ html, body {background-color: #EDF2F6;font-family: 'Roboto', sans-serif;height:1
 .navbar_page span {height: 100%;line-height: 3;font-size: .995rem;letter-spacing: 1px;text-transform: uppercase;}
 .navbar_search {height: 50px;text-align: center;width: 40%;display: inline-block;line-height: 3}
 .navbar_search input {padding: 10px;border:none;background-color: rgb(208, 208, 208);color: white;width:70%;}
-.navbar_search button {padding: 10px;border:none;background-color: rgb(212, 212, 212);color: white;margin-left:-20px;cursor: pointer;}
-.navbar_search button:hover {background-color: rgb(205, 205, 205);}
+.navbar_search button {padding: 10px;border:none;background-color: rgb(212, 212, 212);color: rgb(0, 0, 0);margin-left:-20px;cursor: pointer;}
+.navbar_search button:hover {background-color: rgb(255, 255, 255); border-radius: 5px;}
 .navbar_icons {height: 50px;text-align: center;width: 22%;display: inline-block;}
 .navbar_icons ul {height: 50px;}
 .navbar_icons ul li {height: 50px;display: inline-block;padding-left: 15px;padding-right: 15px;font-size: 19px;line-height: 2.5;cursor: pointer;}
