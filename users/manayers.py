@@ -23,4 +23,4 @@ class usermaneyer(BaseUserManager):
     
     
     def filtrar_contenido(self, contenido):
-        return self.filter(Q(username__icontains=contenido)|Q(post_user_reverse__descripcion__icontains=contenido)) .distinct()
+        return self.filter(Q(username__icontains=contenido)|Q(post_user_reverse__descripcion__icontains=contenido)).distinct()

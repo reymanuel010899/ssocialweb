@@ -31,7 +31,7 @@ def registrar_usuario(request):
             return render(request, 'register.html', {"form":form, 'errores':"correo ya existe, intente con otro correo "} )
         redsocial = User.objects.get(id='1')
         mio , crd = AmigoModels.objects.get_or_create(user=user, añadidos=redsocial)
-        obj , amigo = AmigoModels.objects.get_or_create(añadidos=user, user=redsocial) 
+        obj , amigo = AmigoModels.objects.get_or_create(añadidos=user, user=redsocial)
         PostModel.objects.create(user=user, archivo=user.avatar)
         mensaje = "Bienvenido %s  espero que te la pases bien en kiptly"%(user.username)
         ChatModels.objects.create(user=redsocial, amigo=obj, mensaje=mensaje)
