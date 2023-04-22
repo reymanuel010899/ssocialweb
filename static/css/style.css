@@ -29,7 +29,7 @@ html, body {background-color: #EDF2F6;font-family: 'Roboto', sans-serif;height:1
 .navbar_search {height: 50px;text-align: center;width: 40%;display: inline-block;line-height: 3}
 .navbar_search input {padding: 10px;border:none;background-color: rgb(146, 95, 194);color: white;width:70%;}
 .navbar_search button {padding: 10px;border:none;background-color: rgb(146, 95, 194);color: white;margin-left:-20px;cursor: pointer;}
-.navbar_search button:hover {background-color: rgb(146, 95, 194);}
+.navbar_search button:hover {background-color: rgb(205, 205, 205);}
 .navbar_icons {height: 50px;text-align: center;width: 22%;display: inline-block;}
 .navbar_icons ul {height: 50px;}
 .navbar_icons ul li {height: 50px;display: inline-block;padding-left: 15px;padding-right: 15px;font-size: 19px;line-height: 2.5;cursor: pointer;}
