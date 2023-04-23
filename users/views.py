@@ -38,7 +38,10 @@ def registrar_usuario(request):
         asunto ='CODIGO DE VERIFICACION'
         messege = 'por favor agregar este codigo %s'%(codig)
         from_mail = settings.EMAIL_HOST_USER 
-        send_mail(asunto, messege, from_mail, [gmail,])
+        try:
+            send_mail(asunto, messege, from_mail, [gmail,])
+        except:
+            return redirect('inicio_app:incio')
         return redirect('users_app:verificar_codigo', username=user.username)
     return render(request, 'register.html', {"form":form} )
 

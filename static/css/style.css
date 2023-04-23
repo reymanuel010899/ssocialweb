@@ -27,7 +27,7 @@ html, body {background-color: #EDF2F6;font-family: 'Roboto', sans-serif;height:1
 .navbar_page {height: 50px;text-align: center;background-color: #ffffff;padding-left: 30px;padding-right: 30px;}
 .navbar_page span {height: 100%;line-height: 3;font-size: .995rem;letter-spacing: 1px;text-transform: uppercase;}
 .navbar_search {height: 50px;text-align: center;width: 40%;display: inline-block;line-height: 3}
-.navbar_search input {padding: 10px;border:none;background-color: rgb(255, 255, 255);color: white;width:70%;}
+.navbar_search input {padding: 10px;border:none;background-color: rgb(255, 255, 255);color: rgb(0, 0, 0);width:70%;}
 .navbar_search button {padding: 10px;border:none;background-color: rgb(255, 255, 255);color: rgb(0, 0, 0);margin-left:-20px;cursor: pointer;}
 .navbar_search button:hover {background-color: rgb(255, 255, 255); border-radius: 5px;}
 .navbar_icons {height: 50px;text-align: center;width: 22%;display: inline-block;}
