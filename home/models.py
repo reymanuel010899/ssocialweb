@@ -228,13 +228,26 @@ def notificar_comentario(instance, sender, *args, **kwargs):
 post_save.connect(notificar_comentario, sender=ComentarModels)
 
 
+# def convertir_video_o_imagenes(instance, sender, *args, **kwargs):
+#     archivo = instance.archivo
+#     archivo = str(archivo).lower()
+#     formato = ''
+#     if archivo is not None:
+#         formato = archivo[-4:]
+#         if formato == '.jpg' or formato == '.png':
+#             PostModel.objects.filter(id=instance.id).update(images=archivo)
+#         elif formato == '.mp3' or formato == '.mp4':
+#             PostModel.objects.filter(id=instance.id).update(video=archivo)
+# post_save.connect(convertir_video_o_imagenes, sender=PostModel)
+
+
 def convertir_video_o_imagenes(instance, sender, *args, **kwargs):
     archivo = instance.archivo
     archivo = str(archivo).lower()
     formato = ''
     if archivo is not None:
         formato = archivo[-4:]
-        if formato == '.jpg' or formato == '.png':
+        if formato == '.jpg' or formato == '.png' or formato == 'jpeg' or formato == 'webp':
             PostModel.objects.filter(id=instance.id).update(images=archivo)
         elif formato == '.mp3' or formato == '.mp4':
             PostModel.objects.filter(id=instance.id).update(video=archivo)
