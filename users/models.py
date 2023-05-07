@@ -19,7 +19,7 @@ class UserActivity(models.Model):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(max_length=50)
+    username = models.CharField(max_length=50, unique=True)
     gmail = models.EmailField(unique=True)
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)

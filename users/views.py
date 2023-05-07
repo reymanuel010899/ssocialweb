@@ -25,10 +25,10 @@ def registrar_usuario(request):
         perfil = request.FILES.get('perfil')
         if request.POST.get('password','') != request.POST.get('password2',''):
             return render(request, 'register.html', {"form":form, 'errores':"contraseñas incorrectas"} )
-        try:
-            user = User.objects.create_user(username, gmail, request.POST.get('password'), codigo=codig, avatar=perfil)
-        except:
-            return render(request, 'register.html', {"form":form, 'errores':"correo ya existe, intente con otro correo "} )
+       
+        user = User.objects.create_user(username, gmail, request.POST.get('password'), codigo=codig, avatar=perfil)
+   
+            # return render(request, 'register.html', {"form":form, 'errores':"correo ya existe, intente con otro correo "} )
         redsocial = User.objects.get(id='1')
         mio , crd = AmigoModels.objects.get_or_create(user=user, añadidos=redsocial)
         obj , amigo = AmigoModels.objects.get_or_create(añadidos=user, user=redsocial)
@@ -38,10 +38,12 @@ def registrar_usuario(request):
         asunto ='CODIGO DE VERIFICACION'
         messege = 'por favor agregar este codigo %s'%(codig)
         from_mail = settings.EMAIL_HOST_USER 
+        
         try:
             send_mail(asunto, messege, from_mail, [gmail,])
         except:
-            return redirect('inicio_app:incio')
+            login(request, user)
+            return redirect('inicio_app:inicio')
         return redirect('users_app:verificar_codigo', username=user.username)
     return render(request, 'register.html', {"form":form} )
 
