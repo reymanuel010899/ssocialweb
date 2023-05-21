@@ -1,0 +1,2 @@
+nombre"rey"
+export nombre
